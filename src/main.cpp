@@ -34,9 +34,21 @@ static PerfMonitor g_PerfMonitor;
 // MAIN LOOP
 // ============================================================================
 
+// Track interval selection changes
+static int g_LastIntervalSelection = 0;
+
 void main_loop()
 {
     ImGuiIO& io = ImGui::GetIO();
+    
+    // Check if interval selection changed
+    int currentInterval = g_ChartRenderer.getSettings().selectedInterval;
+    if (currentInterval != g_LastIntervalSelection)
+    {
+        bool preserveHistory = g_ChartRenderer.getSettings().preserveHistory;
+        g_Ticker.setCandleInterval(ChartRenderer::INTERVALS[currentInterval], preserveHistory);
+        g_LastIntervalSelection = currentInterval;
+    }
     
     // Update performance monitoring
     g_PerfMonitor.beginFrame(io.DeltaTime);
