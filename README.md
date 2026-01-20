@@ -1,45 +1,44 @@
-# ImGui Web Counter
+# ImGui Market Chart
 
-A simple counter application built with [Dear ImGui](https://github.com/ocornut/imgui), compiled to WebAssembly, and served locally with [Bun](https://bun.sh).
+Real-time candlestick chart built with Dear ImGui + WebAssembly. Demonstrates high-performance UI rendering without JavaScript frameworks.
 
 ## Quick Start
 
 ```bash
-# 1. Build for web
-make
-
-# 2. Start Bun server
-bun serve.js
-
-# 3. Open browser
-# Navigate to http://localhost:3000
+make          # Build WASM
+bun serve.js  # Start server
+# Open http://localhost:3000
 ```
-
-## What This Project Demonstrates
-
-- ImGui immediate mode GUI paradigm
-- C++ to WebAssembly compilation
-- Cross-platform GUI rendering with SDL2 + OpenGL3
-- Bun static file server
 
 ## Features
 
-- Increment counter button
-- Reset counter button
-- Real-time display of counter value
-- Responsive canvas (resizes with window)
+- **Live candlestick chart** with OHLC data
+- **Multiple intervals**: 1s, 30s, 1m, 5m
+- **Zoom & pan**: Scroll wheel, buttons, drag
+- **Crosshair & tooltips**: Hover for price details
+- **History preservation**: Re-aggregate candles on interval change
 
-## Project Files
+## Controls
 
-- `main.cpp` - Counter application logic
-- `Makefile` - Build configuration for Emscripten
-- `serve.js` - Bun static file server
-- `shell.html` - Emscripten HTML template
-- `libs/imgui/` - Dear ImGui library source files
+| Action | Input |
+|--------|-------|
+| Zoom | Scroll wheel / +/- buttons |
+| Pan | Shift+scroll / Drag |
+| Tooltip | Hover candle |
 
-## Full Setup Guide
+## Project Structure
 
-See [SETUP.md](SETUP.md) for:
-- Installing Emscripten
-- Installing Bun
-- Troubleshooting tips
+```
+src/
+├── main.cpp              # Entry point
+├── chart/                # Chart rendering
+├── data/                 # Price simulation
+└── perf/                 # Performance monitoring
+```
+
+## Requirements
+
+- Emscripten SDK
+- Bun (or any static server)
+
+See [SETUP.md](SETUP.md) for installation.
